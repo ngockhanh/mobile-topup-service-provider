@@ -1,0 +1,138 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: topup-service-provider
+host: 'localhost:8000'
+basePath: /
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /order:
+    x-swagger-router-controller: Create new topup order
+    post:
+      description: Create nre topup order
+      operationId: createOrder
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/CreateOrderParameters'
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CreateOrderResponse'
+        default:
+          description: Error Occured
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /order/checkTrans:
+    x-swagger-router-controller: Check order info by transaction id
+    get:
+      description: Check order info by transaction id
+      operationId: checkTrans
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/CheckTransParameters'
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/checkTransResponse'
+        default:
+          description: Error Occured
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+parameters:
+  CreateOrderParameters:
+    name: body
+    in: body
+    description: The parameters for creating new order
+    schema:
+      $ref: '#/definitions/OrdersRequest'
+  CheckTransParameters:
+    in: query
+    name: transaction_id
+    description: Transaction id
+    required: true
+    type: string
+definitions:
+  OrdersRequest:
+    required:
+      - phone_number
+      - amount
+    properties:
+      phone_number:
+        type: string
+        example: 0133456789
+        description: The phone number
+      amount:
+        type: integer
+        example: 100000
+        description: Total payment amount
+        enum:
+          - 10000
+          - 20000
+          - 50000
+          - 100000
+          - 200000
+          - 500000
+      provider:
+        type: string
+        example: VTT
+        description: The service provider
+  CreateOrderResponse:
+    required:
+      - transaction_id
+      - error_code
+    properties:
+      transaction_id:
+        type: string
+        example: 123432we12reewer322
+        description: The transaction id
+      error_code:
+        type: integer
+        example: 110
+        description: The code which reflect to transaction status
+      message:
+        type: string
+        example: Transaction is failed
+        description: The code description
+  checkTransResponse:
+    required:
+      - transaction_id
+      - error_code
+    properties:
+      transaction_id:
+        type: string
+        example: 123432we12reewer322
+        description: The transaction id
+      error_code:
+        type: integer
+        example: 110
+        description: The code which reflect to transaction status
+      message:
+        type: string
+        example: Transaction is failed
+        description: The code description
+  ErrorResponse:
+    required:
+      - code
+    properties:
+      code:
+        type: string
+      message:
+        type: string
