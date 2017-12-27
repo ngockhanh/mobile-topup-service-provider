@@ -1,0 +1,51 @@
+version: '2.1'
+services:
+  vnptepay-topup-service-provider:
+    #logging:
+    #  driver: awslogs
+    #  options:
+    #    awslogs-region: ap-southeast-1
+    #    awslogs-group: echo-service-provider
+    #    awslogs-create-group: 'true'
+    #    awslogs-multiline-pattern: '(INFO|DEBUG|ERROR|WARNNING)'
+    build:
+      context: ./
+    environment:
+      - TOPUP_SERVICE_ENABLED=YES
+      - LOG_LEVEL=debug
+      - TOPUP_SERVICE_PROVIDER=VNPTEPAY
+      - TOPUP_SERVICE_URL=http://itopup-test.megapay.net.vn:8086/CDV_Partner_Services/services/Interfaces?wsdl
+      - TOPUP_SERVICE_SECURE_PRIVATE_KEY=vnpt_epay_private_key.pem
+      - TOPUP_SERVICE_PARTNER_NAME=partnerTest_PHP
+      - TOPUP_SERVICE_PASSWORD=123456abc
+    ports:
+     - 8080:8000
+    healthcheck:
+      test: ["CMD-SHELL", "curl -I -s -L http://127.0.0.1:8000 || exit 1"]
+      interval: 5s
+      retries: 10
+    restart: always
+  finviet-topup-service-provider:
+    #logging:
+    #  driver: awslogs
+    #  options:
+    #    awslogs-region: ap-southeast-1
+    #    awslogs-group: echo-service-provider
+    #    awslogs-create-group: 'true'
+    #    awslogs-multiline-pattern: '(INFO|DEBUG|ERROR|WARNNING)'
+    build:
+      context: ./
+    environment:
+      - TOPUP_SERVICE_ENABLED=YES
+      - LOG_LEVEL=debug
+      - TOPUP_SERVICE_PROVIDER=FINVIET
+      - TOPUP_SERVICE_SECURE_HASH_KEY=
+      - TOPUP_SERVICE_USERNAME=
+      - TOPUP_SERVICE_PASSWORD=
+    ports:
+     - 8090:8000
+    healthcheck:
+      test: ["CMD-SHELL", "curl -I -s -L http://127.0.0.1:8000 || exit 1"]
+      interval: 5s
+      retries: 10
+    restart: always

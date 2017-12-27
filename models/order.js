@@ -1,5 +1,5 @@
 'use strict';
-var Mockgen = require('./mockgen.js');
+var publisher = require('../connectors/publisher');
 /**
  * Operations on /order
  */
@@ -14,26 +14,13 @@ module.exports = {
      */
     post: {
         200: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            Mockgen().responses({
-                path: '/order',
-                operation: 'post',
-                response: '200'
-            }, callback);
+            publisher.createOrder(req.body.request_id, req.body.phone_number, req.body.amount, req.body.provider, callback);
         },
         default: function (req, res, callback) {
             /**
              * Using mock data generator module.
              * Replace this by actual data for the api.
              */
-            Mockgen().responses({
-                path: '/order',
-                operation: 'post',
-                response: 'default'
-            }, callback);
         }
     }
 };
