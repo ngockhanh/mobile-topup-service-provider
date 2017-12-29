@@ -14,7 +14,7 @@ module.exports = {
      */
     post: {
         200: function (req, res, callback) {
-            publisher.createOrder(req.body.request_id, req.body.phone_number, req.body.amount, req.body.provider, callback);
+            publisher.createOrder(req.body.request_id, req.body.phone_number, req.body.amount, callback);
         },
         default: function (req, res, callback) {
             /**

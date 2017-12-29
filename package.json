@@ -1,40 +1,55 @@
 {
-    "name": "topup-service-provider",
-    "description": "",
-    "version": "1.0.0",
-    "author": "Tran Ngoc Khanh <ngockhanh@ononpay.com>",
-    "contributors": [],
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/ngockhanh/topup-service-provider.git"
-    },
-    "bugs": "http://github.com/ngockhanh/topup-service-provider/issues",
-    "publishConfig": {
-        "registry": "https://registry.npmjs.org"
-    },
-    "dependencies": {
-        "express": "^4.0.0",
-        "body-parser": "^1.15.0",
-        "swaggerize-express": "^4.0.0",
-        "swagmock": "~0.0.2"
-    },
-    "devDependencies": {
-        "eslint": "^2",
-        "istanbul": "~0.4.3",
-        "is-my-json-valid": "^2.13.1",
-        "js-yaml": "^3.2.6",
-        "supertest": "^1.2.0",
-        "swagger-parser": "^3.4.1",
-        "tape": "^4"
-    },
-    "scripts": {
-        "test": "tape 'tests/**/*.js'",
-        "cover": "istanbul cover tape -- 'tests/**/*.js'",
-        "lint": "eslint .",
-        "regenerate": "yo swaggerize:test --framework express --apiPath './config/swagger.yaml'"
-    },
-    "generator-swaggerize": {
-        "version": "3.1.0"
-    },
-    "main": "./server"
+  "name": "topup-service-provider",
+  "description": "",
+  "version": "1.0.0",
+  "author": "Tran Ngoc Khanh <ngockhanh@ononpay.com>",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ngockhanh/topup-service-provider.git"
+  },
+  "bugs": "http://github.com/ngockhanh/topup-service-provider/issues",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "app-root-path": "^2.0.1",
+    "body-parser": "^1.15.0",
+    "date-format": "^1.2.0",
+    "dateformat": "^3.0.2",
+    "express": "^4.0.0",
+    "moment-timezone": "0.5.14",
+    "npm": "^5.6.0",
+    "request-promise": "^4.2.2",
+    "sha1": "^1.1.1",
+    "soap": "^0.23.0",
+    "swagger-ui-express": "^2.0.13",
+    "swaggerize-express": "^4.0.0",
+    "swagmock": "~0.0.2",
+    "timestamp-log": "^1.0.0",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^2",
+    "istanbul": "~0.4.3",
+    "is-my-json-valid": "^2.13.1",
+    "js-yaml": "^3.2.6",
+    "supertest": "^1.2.0",
+    "swagger-parser": "^3.4.1",
+    "tape": "^4"
+  },
+  "scripts": {
+    "postinstall": "",
+    "preinstall": "",
+    "test": "tape 'tests/**/*.js'",
+    "cover": "istanbul cover tape -- 'tests/**/*.js'",
+    "lint": "eslint .",
+    "regenerate": "yo swaggerize:test --framework express --apiPath config/swagger.yaml",
+    "regenerate-data": "yo swaggerize:data --framework express --dataPath models --handlerPath controllers --apiPath config/swagger.yaml",
+    "regenerate-handler": "yo swaggerize:handler --framework express --dataPath models --handlerPath controllers --apiPath config/swagger.yaml"
+  },
+  "generator-swaggerize": {
+    "version": "3.1.0"
+  },
+  "main": "./server"
 }

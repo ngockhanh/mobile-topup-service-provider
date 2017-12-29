@@ -2,13 +2,12 @@
 const CollectorHandler = require('../collector-handler');
 
 module.exports = {
-    createOrder: function (requestId, phoneNumber, amount, provider, callback) {
+    createOrder: function (requestId, phoneNumber, amount, callback) {
         var collectorHandler = new CollectorHandler();
         collectorHandler.sendRequestToServiceProvider({
             request_id: requestId,
             phone_number: phoneNumber,
-            amount: amount,
-            provider: provider
+            amount: amount
         }, callback);
     },
 

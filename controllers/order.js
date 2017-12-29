@@ -20,10 +20,10 @@ module.exports = {
         var provider = dataProvider['post']['200'];
         provider(req, res, function (err, data) {
             if (err) {
-                next(err);
-                return;
+                res.status(status).send(err);
+            } else {
+                res.status(status).send(data);
             }
-            res.status(status).send(data);
         });
     }
 };

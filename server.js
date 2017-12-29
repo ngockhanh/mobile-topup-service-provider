@@ -15,9 +15,14 @@ App.use(BodyParser.urlencoded({
     extended: true
 }));
 
+const swaggerUi = require('swagger-ui-express');
+const Yaml = require('yamljs');
+const swaggerDocument = Yaml.load('./config/swagger.yaml');
+App.use('/docs/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 App.use(Swaggerize({
     api: Path.resolve('./config/swagger.yaml'),
-    handlers: Path.resolve('./handlers')
+    handlers: Path.resolve('./controllers')
 }));
 
 Server.listen(8000, function () {

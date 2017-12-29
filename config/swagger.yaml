@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   version: 0.0.1
-  title: topup-service-provider
+  title: mobile-topup-service-provider
 host: 'localhost:8000'
 basePath: /
 schemes:
@@ -65,15 +65,16 @@ parameters:
       $ref: '#/definitions/OrdersRequest'
   CheckTransParameters:
     in: query
-    name: transaction_id
+    name: request_id
     description: Transaction id
-    required: true
-    type: string
+    schema:
+      $ref: '#/definitions/CheckTransRequest'
 definitions:
   OrdersRequest:
     required:
       - phone_number
       - amount
+      - request_id
     properties:
       phone_number:
         type: string
@@ -90,49 +91,46 @@ definitions:
           - 100000
           - 200000
           - 500000
-      provider:
+      request_id:
         type: string
-        example: VTT
-        description: The service provider
+        example: a11122ee122eeaads
   CreateOrderResponse:
     required:
-      - transaction_id
-      - error_code
+      - request_id
+      - status
     properties:
-      transaction_id:
+      request_id:
         type: string
-        example: 123432we12reewer322
-        description: The transaction id
-      error_code:
-        type: integer
-        example: 110
-        description: The code which reflect to transaction status
-      message:
+        example: a123432we12reewer322
+        description: The request id
+      status:
         type: string
-        example: Transaction is failed
-        description: The code description
+        example: SUCCESS|PENDING|FAIL
+  CheckTransRequest:
+    required:
+      - request_id
+    properties:
+      request_id:
+        type: string
+        example: asasfs123132
   checkTransResponse:
     required:
-      - transaction_id
-      - error_code
+      - request_id
+      - status
     properties:
-      transaction_id:
+      request_id:
         type: string
-        example: 123432we12reewer322
-        description: The transaction id
-      error_code:
-        type: integer
-        example: 110
-        description: The code which reflect to transaction status
-      message:
+        example: a123432we12reewer322
+      status:
         type: string
-        example: Transaction is failed
-        description: The code description
+        example: SUCCESS|PENDING|FAIL
+        description: The code which reflect to request status
   ErrorResponse:
     required:
-      - code
+      - status
     properties:
-      code:
+      status:
         type: string
+        example: SUCCESS|PENDING|FAIL
       message:
         type: string
